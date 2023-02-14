@@ -17,7 +17,7 @@ func main() {
 	l2_2 := ListNode{Val: 9, Next: &l2_3}
 	l2_1 := ListNode{Val: 9, Next: &l2_2}
 
-	head := addTwoNumbers(&l1_1, &l2_1)
+	head := addTwoNumbers_Advanced(&l1_1, &l2_1)
 	for head != nil {
 		fmt.Printf("%v ", head.Val)
 		head = head.Next
@@ -80,4 +80,40 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 
 	return sumHead.Next
+}
+
+func addTwoNumbers_Advanced(l1 *ListNode, l2 *ListNode) *ListNode {
+	carry, head := 0, l1
+	for {
+		// calculate
+		l1.Val += l2.Val + carry
+		carry = l1.Val / 10
+		l1.Val = l1.Val % 10
+		// exit loop checking
+		if l2.Next == nil {
+			break
+		} else if l1.Next == nil {
+			l1.Next = l2.Next
+			break
+		}
+		// move forward
+		l1 = l1.Next
+		l2 = l2.Next
+	}
+
+	// taking care of carry
+	for carry != 0 {
+		// if no more -> make a new one
+		if l1.Next == nil {
+			l1.Next = &ListNode{0, nil}
+		}
+
+		l1.Next.Val += carry
+		carry = l1.Next.Val / 10
+		l1.Next.Val = l1.Next.Val % 10
+
+		l1 = l1.Next
+	}
+
+	return head
 }
