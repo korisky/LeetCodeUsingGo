@@ -43,3 +43,26 @@ func longestPalindrome(s string) string {
 	}
 	return s[maxStartIdx : maxStartIdx+maxLen]
 }
+
+func longestPalindrome_Improve(s string) string {
+	maxP := ""
+	for i := 0; i < len(s); i++ {
+		curP := expand(s, i, i)
+		nextP := expand(s, i, i+1)
+		if len(nextP) > len(curP) {
+			curP = nextP
+		}
+		if len(maxP) < len(curP) {
+			maxP = curP
+		}
+	}
+	return maxP
+}
+
+func expand(s string, left int, right int) string {
+	for left >= 0 && right < len(s) && s[left] == s[right] {
+		left--
+		right++
+	}
+	return s[left+1 : right]
+}
