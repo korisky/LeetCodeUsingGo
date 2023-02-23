@@ -11,11 +11,12 @@ func main() {
 	fmt.Println(isPalindrome(80))
 	fmt.Println(isPalindrome(121))
 	fmt.Println(isPalindrome(90809))
+	fmt.Println(isPalindrome(-121))
+	fmt.Println(isPalindrome(0))
 }
 
 func isPalindrome(x int) bool {
-	reverseX := reverseInt(x)
-	if reverseX == x {
+	if x >= 0 && reverseInt(x) == x {
 		return true
 	}
 	return false
