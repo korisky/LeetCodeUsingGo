@@ -18,7 +18,7 @@ func minOperations(nums []int, k int) int {
 	for _, x := range nums {
 		if x < k {
 			return -1
-		} else {
+		} else if x > k {
 			st[x] = true
 		}
 	}
